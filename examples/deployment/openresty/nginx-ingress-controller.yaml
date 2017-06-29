@@ -22,7 +22,7 @@ spec:
       # hostNetwork: true
       terminationGracePeriodSeconds: 60
       containers:
-      - image: tzumby/nginx-ingress-controller:0.1.0
+      - image: tzumby/nginx-ingress-controller:0.1.2
         name: nginx-ingress-controller
         volumeMounts:
           - mountPath: /usr/local/waf_rules/rules
@@ -59,4 +59,4 @@ spec:
       volumes:
         - name: waf-rules
           hostPath:
-            path: waf_rules/rules
+            path: /Users/tzumby/devops/kube/ingress_openresty/examples/deployment/openresty/waf_rules/rules
