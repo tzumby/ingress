@@ -1,0 +1,650 @@
+{
+   "access" : [
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9001000",
+         "operator" : "EQUALS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "0",
+         "skip_after" : "END-DRUPAL-RULE-EXCLUSIONS",
+         "vars" : [
+            {
+               "length" : 1,
+               "parse" : [
+                  "specific",
+                  "CRS_EXCLUSIONS_DRUPAL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            },
+            {
+               "parse" : [
+                  "specific",
+                  "CRS_EXCLUSIONS_DRUPAL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9001100",
+         "opts" : {
+            "nolog" : 1
+         },
+         "vars" : [
+            {
+               "unconditional" : 1
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9001110",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "/core/install.php$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9001112",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "/user/login$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9001114",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "/admin/people/create$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9001116",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1
+         },
+         "pattern" : "/user/[0-9]+/edit$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE",
+            "nondisrupt" : [
+               {
+                  "action" : "rule_remove_id",
+                  "data" : "942430"
+               }
+            ]
+         },
+         "id" : "9001122",
+         "operator" : "STR_CONTAINS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "/admin/config/",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE",
+            "nondisrupt" : [
+               {
+                  "action" : "rule_remove_id",
+                  "data" : "920271"
+               },
+               {
+                  "action" : "rule_remove_id",
+                  "data" : "942440"
+               }
+            ]
+         },
+         "id" : "9001124",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "/admin/config/people/accounts$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE",
+            "nondisrupt" : [
+               {
+                  "action" : "rule_remove_id",
+                  "data" : "920271"
+               },
+               {
+                  "action" : "rule_remove_id",
+                  "data" : "942440"
+               }
+            ]
+         },
+         "id" : "9001126",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "/admin/config/development/configuration/single/import$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE",
+            "nondisrupt" : [
+               {
+                  "action" : "rule_remove_id",
+                  "data" : "942440"
+               }
+            ]
+         },
+         "id" : "9001128",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "/admin/config/development/maintenance$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9001140",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "/contextual/render$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9001160",
+         "opts" : {
+            "nolog" : 1
+         },
+         "vars" : [
+            {
+               "unconditional" : 1
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9001170",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "/admin/config/content/formats/manage/full_html$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9001180",
+         "operator" : "EQUALS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "POST",
+         "vars" : [
+            {
+               "type" : "METHOD"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9001180",
+         "operator" : "REFIND",
+         "pattern" : "/admin/content/assets/add/[a-z]+$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9001180",
+         "operator" : "REFIND",
+         "pattern" : "^[a-zA-Z0-9_-]+",
+         "vars" : [
+            {
+               "parse" : [
+                  "regex",
+                  "S?SESS[a-f0-9]+"
+               ],
+               "type" : "COOKIES"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9001182",
+         "operator" : "EQUALS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "POST",
+         "vars" : [
+            {
+               "type" : "METHOD"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9001182",
+         "operator" : "REFIND",
+         "pattern" : "/admin/content/assets/manage/[0-9]+$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9001182",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "admin/content/assets",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "destination"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9001182",
+         "operator" : "GREATER",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "31486341",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "Content-Length"
+               ],
+               "type" : "REQUEST_HEADERS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9001182",
+         "operator" : "REFIND",
+         "pattern" : "^[a-zA-Z0-9_-]+",
+         "vars" : [
+            {
+               "parse" : [
+                  "regex",
+                  "S?SESS[a-f0-9]+"
+               ],
+               "type" : "COOKIES"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9001184",
+         "operator" : "EQUALS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "POST",
+         "vars" : [
+            {
+               "type" : "METHOD"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9001184",
+         "operator" : "REFIND",
+         "pattern" : "/file/ajax/field_asset_[a-z0-9_]+/[ua]nd/0/form-[a-z0-9A-Z_-]+$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9001184",
+         "operator" : "GREATER",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "31486341",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "Content-Length"
+               ],
+               "type" : "REQUEST_HEADERS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9001184",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "multipart/form-data",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "Content-Type"
+               ],
+               "type" : "REQUEST_HEADERS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9001184",
+         "operator" : "REFIND",
+         "pattern" : "^@rx [a-zA-Z0-9_-]+",
+         "vars" : [
+            {
+               "parse" : [
+                  "regex",
+                  "S?SESS[a-f0-9]+"
+               ],
+               "type" : "COOKIES"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9001200",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "/node/add/article$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9001202",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "/node/add/page$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9001204",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1
+         },
+         "pattern" : "/node/[0-9]+/edit$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9001206",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "/block/add$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9001208",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "/admin/structure/block/block-content/manage/basic$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9001210",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1
+         },
+         "pattern" : "/editor/filter_xss/(full|basic)_html$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9001212",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1
+         },
+         "pattern" : "/user/[0-9]+/contact$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9001214",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "/admin/config/development/maintenance$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9001216",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "/admin/config/services/rss-publishing$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "DENY"
+         },
+         "id" : "END-DRUPAL-RULE-EXCLUSIONS",
+         "op_negated" : 1,
+         "vars" : [
+            {
+               "unconditional" : 1
+            }
+         ]
+      }
+   ],
+   "body_filter" : [],
+   "header_filter" : []
+}

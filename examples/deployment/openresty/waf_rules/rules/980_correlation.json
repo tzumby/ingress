@@ -1,0 +1,415 @@
+{
+   "access" : [
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "980100",
+         "operator" : "GREATER_EQ",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "severity" : "EMERGENCY",
+         "tag" : [
+            "event-correlation"
+         ],
+         "vars" : [
+            {
+               "length" : 1,
+               "parse" : [
+                  "regex",
+                  "LEAKAGE\\\\\\/ERRORS"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "980100",
+         "msg" : "Correlated Successful Attack Identified: (Total Score: %{TX.ANOMALY_SCORE}) Inbound Attack (%{TX.INBOUND_TX_MSG} - Inbound Anomaly Score: %{TX.INBOUND_ANOMALY_SCORE}) + Outbound Data Leakage (%{TX.MSG} - Outbound Anomaly Score: %{TX.OUTBOUND_ANOMALY_SCORE})",
+         "operator" : "GREATER_EQ",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "skip_after" : "END_CORRELATION",
+         "vars" : [
+            {
+               "length" : 1,
+               "parse" : [
+                  "regex",
+                  "WEB_ATTACK"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "980110",
+         "operator" : "GREATER_EQ",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "severity" : "ALERT",
+         "tag" : [
+            "event-correlation"
+         ],
+         "vars" : [
+            {
+               "length" : 1,
+               "parse" : [
+                  "regex",
+                  "AVAILABILITY\\\\\\/APP_NOT_AVAIL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "980110",
+         "msg" : "Correlated Attack Attempt Identified: (Total Score: %{TX.ANOMALY_SCORE}) Inbound Attack (%{TX.INBOUND_TX_MSG} Inbound Anomaly Score: %{TX.INBOUND_ANOMALY_SCORE}) + Outbound Application Error (%{TX.MSG} - Outbound Anomaly Score: %{TX.OUTBOUND_ANOMALY_SCORE})",
+         "operator" : "GREATER_EQ",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "skip_after" : "END_CORRELATION",
+         "vars" : [
+            {
+               "length" : 1,
+               "parse" : [
+                  "regex",
+                  "WEB_ATTACK"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "980120",
+         "operator" : "GREATER",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "0",
+         "tag" : [
+            "event-correlation"
+         ],
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "INBOUND_ANOMALY_SCORE"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "980120",
+         "msg" : "Inbound Anomaly Score (Total Inbound Score: %{TX.INBOUND_ANOMALY_SCORE}): %{TX.INBOUND_TX_MSG}",
+         "operator" : "LESS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "%{TX.INBOUND_ANOMALY_SCORE_THRESHOLD}",
+         "skip_after" : "END_CORRELATION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "INBOUND_ANOMALY_SCORE"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "980130",
+         "msg" : "Inbound Anomaly Score Exceeded (Total Inbound Score: %{TX.INBOUND_ANOMALY_SCORE} - SQLI=%{TX.SQL_INJECTION_SCORE},XSS=%{TX.XSS_SCORE},RFI=%{TX.RFI_SCORE},LFI=%{TX.LFI_SCORE},RCE=%{TX.RCE_SCORE},PHPI=%{TX.PHP_INJECTION_SCORE},HTTP=%{TX.HTTP_VIOLATION_SCORE},SESS=%{TX.SESSION_FIXATION_SCORE}): %{TX.INBOUND_TX_MSG}",
+         "operator" : "GREATER_EQ",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "%{TX.INBOUND_ANOMALY_SCORE_THRESHOLD}",
+         "tag" : [
+            "event-correlation"
+         ],
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "INBOUND_ANOMALY_SCORE"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "980140",
+         "msg" : "Outbound Anomaly Score Exceeded (score %{TX.OUTBOUND_ANOMALY_SCORE}): %{TX.MSG}",
+         "operator" : "GREATER_EQ",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "%{TX.OUTBOUND_ANOMALY_SCORE_THRESHOLD}",
+         "tag" : [
+            "event-correlation"
+         ],
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "OUTBOUND_ANOMALY_SCORE"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "DENY"
+         },
+         "id" : "END_CORRELATION",
+         "op_negated" : 1,
+         "vars" : [
+            {
+               "unconditional" : 1
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "980011",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "skip_after" : "END-RESPONSE-980-CORRELATION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "980012",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "skip_after" : "END-RESPONSE-980-CORRELATION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "980013",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "2",
+         "skip_after" : "END-RESPONSE-980-CORRELATION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "980014",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "2",
+         "skip_after" : "END-RESPONSE-980-CORRELATION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "980015",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "3",
+         "skip_after" : "END-RESPONSE-980-CORRELATION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "980016",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "3",
+         "skip_after" : "END-RESPONSE-980-CORRELATION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "980017",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "4",
+         "skip_after" : "END-RESPONSE-980-CORRELATION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "980018",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "4",
+         "skip_after" : "END-RESPONSE-980-CORRELATION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "DENY"
+         },
+         "id" : "END-RESPONSE-980-CORRELATION",
+         "op_negated" : 1,
+         "vars" : [
+            {
+               "unconditional" : 1
+            }
+         ]
+      }
+   ],
+   "body_filter" : [],
+   "header_filter" : []
+}
+

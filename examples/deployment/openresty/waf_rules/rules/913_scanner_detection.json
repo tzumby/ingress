@@ -1,0 +1,796 @@
+{
+   "access" : [
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "913011",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "skip_after" : "END-REQUEST-913-SCANNER-DETECTION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "913012",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "skip_after" : "END-REQUEST-913-SCANNER-DETECTION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "accuracy" : "9",
+         "actions" : {
+            "disrupt" : "DENY",
+            "nondisrupt" : [
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "MSG",
+                     "value" : "%{rule.msg}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "ANOMALY_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "%{RULE.ID}-OWASP_CRS/AUTOMATION/SECURITY_SCANNER-%{MATCHED_VAR_NAME}",
+                     "value" : "%{MATCHED_VAR}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "IP",
+                     "key" : "REPUT_BLOCK_FLAG",
+                     "value" : 1
+                  }
+               },
+               {
+                  "action" : "expirevar",
+                  "data" : {
+                     "col" : "IP",
+                     "key" : "REPUT_BLOCK_FLAG",
+                     "time" : "%{TX.REPUT_BLOCK_DURATION}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "IP",
+                     "key" : "REPUT_BLOCK_REASON",
+                     "value" : "%{rule.msg}"
+                  }
+               }
+            ]
+         },
+         "id" : "913100",
+         "logdata" : "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+         "maturity" : "9",
+         "msg" : "Found User-Agent associated with security scanner",
+         "operator" : "PM",
+         "opts" : {
+            "transform" : [
+               "lowercase"
+            ]
+         },
+         "pattern" : [
+            "(hydra)",
+            ".nasl",
+            "absinthe",
+            "advanced email extractor",
+            "arachni/",
+            "autogetcontent",
+            "bilbo",
+            "BFAC",
+            "brutus",
+            "brutus/aet",
+            "bsqlbf",
+            "cgichk",
+            "cisco-torch",
+            "commix",
+            "core-project/1.0",
+            "crimscanner/",
+            "datacha0s",
+            "dirbuster",
+            "domino hunter",
+            "dotdotpwn",
+            "email extractor",
+            "fhscan core 1.",
+            "floodgate",
+            "get-minimal",
+            "gootkit auto-rooter scanner",
+            "grabber",
+            "grendel-scan",
+            "havij",
+            "inspath",
+            "internet ninja",
+            "jaascois",
+            "zmeu",
+            "masscan",
+            "metis",
+            "morfeus fucking scanner",
+            "mysqloit",
+            "n-stealth",
+            "nessus",
+            "netsparker",
+            "nikto",
+            "nmap nse",
+            "nmap scripting engine",
+            "nmap-nse",
+            "nsauditor",
+            "openvas",
+            "pangolin",
+            "paros",
+            "pmafind",
+            "prog.customcrawler",
+            "qualys was",
+            "s.t.a.l.k.e.r.",
+            "security scan",
+            "springenwerk",
+            "sql power injector",
+            "sqlmap",
+            "sqlninja",
+            "teh forest lobster",
+            "this is an exploit",
+            "toata dragostea",
+            "toata dragostea mea pentru diavola",
+            "uil2pn",
+            "user-agent:",
+            "vega/",
+            "voideye",
+            "w3af.sf.net",
+            "w3af.sourceforge.net",
+            "w3af.org",
+            "webbandit",
+            "webinspect",
+            "webshag",
+            "webtrends security analyzer",
+            "webvulnscan",
+            "whatweb",
+            "whcc/",
+            "wordpress hash grabber",
+            "xmlrpc exploit",
+            "WPScan"
+         ],
+         "rev" : "2",
+         "severity" : "CRITICAL",
+         "tag" : [
+            "application-multi",
+            "language-multi",
+            "platform-multi",
+            "attack-reputation-scanner",
+            "OWASP_CRS/AUTOMATION/SECURITY_SCANNER",
+            "WASCTC/WASC-21",
+            "OWASP_TOP_10/A7",
+            "PCI/6.5.10"
+         ],
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "User-Agent"
+               ],
+               "type" : "REQUEST_HEADERS"
+            }
+         ],
+         "ver" : "OWASP_CRS/3.0.0"
+      },
+      {
+         "accuracy" : "9",
+         "actions" : {
+            "disrupt" : "DENY",
+            "nondisrupt" : [
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "MSG",
+                     "value" : "%{rule.msg}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "ANOMALY_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "%{RULE.ID}-OWASP_CRS/AUTOMATION/SECURITY_SCANNER-%{MATCHED_VAR_NAME}",
+                     "value" : "%{MATCHED_VAR}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "IP",
+                     "key" : "REPUT_BLOCK_FLAG",
+                     "value" : 1
+                  }
+               },
+               {
+                  "action" : "expirevar",
+                  "data" : {
+                     "col" : "IP",
+                     "key" : "REPUT_BLOCK_FLAG",
+                     "time" : "%{TX.REPUT_BLOCK_DURATION}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "IP",
+                     "key" : "REPUT_BLOCK_REASON",
+                     "value" : "%{rule.msg}"
+                  }
+               }
+            ]
+         },
+         "id" : "913110",
+         "logdata" : "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+         "maturity" : "9",
+         "msg" : "Found request header associated with security scanner",
+         "operator" : "PM",
+         "opts" : {
+            "transform" : [
+               "lowercase"
+            ]
+         },
+         "pattern" : [
+            "acunetix-product",
+            "(acunetix web vulnerability scanner",
+            "acunetix-scanning-agreement",
+            "acunetix-user-agreement",
+            "myvar=1234",
+            "x-ratproxy-loop",
+            "bytes=0-,5-0,5-1,5-2,5-3,5-4,5-5,5-6,5-7,5-8,5-9,5-10,5-11,5-12,5-13,5-14",
+            "x-scanner"
+         ],
+         "rev" : "3",
+         "severity" : "CRITICAL",
+         "tag" : [
+            "application-multi",
+            "language-multi",
+            "platform-multi",
+            "attack-reputation-scanner",
+            "OWASP_CRS/AUTOMATION/SECURITY_SCANNER",
+            "WASCTC/WASC-21",
+            "OWASP_TOP_10/A7",
+            "PCI/6.5.10"
+         ],
+         "vars" : [
+            {
+               "parse" : [
+                  "keys",
+                  "1"
+               ],
+               "type" : "REQUEST_HEADERS"
+            },
+            {
+               "parse" : [
+                  "values",
+                  "1"
+               ],
+               "type" : "REQUEST_HEADERS"
+            }
+         ],
+         "ver" : "OWASP_CRS/3.0.0"
+      },
+      {
+         "accuracy" : "9",
+         "actions" : {
+            "disrupt" : "DENY",
+            "nondisrupt" : [
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "MSG",
+                     "value" : "%{rule.msg}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "ANOMALY_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "%{RULE.ID}-OWASP_CRS/AUTOMATION/SECURITY_SCANNER-%{MATCHED_VAR_NAME}",
+                     "value" : "%{MATCHED_VAR}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "IP",
+                     "key" : "REPUT_BLOCK_FLAG",
+                     "value" : 1
+                  }
+               },
+               {
+                  "action" : "expirevar",
+                  "data" : {
+                     "col" : "IP",
+                     "key" : "REPUT_BLOCK_FLAG",
+                     "time" : "%{TX.REPUT_BLOCK_DURATION}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "IP",
+                     "key" : "REPUT_BLOCK_REASON",
+                     "value" : "%{rule.msg}"
+                  }
+               }
+            ]
+         },
+         "id" : "913120",
+         "logdata" : "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+         "maturity" : "9",
+         "msg" : "Found request filename/argument associated with security scanner",
+         "operator" : "PM",
+         "opts" : {
+            "transform" : [
+               "lowercase"
+            ]
+         },
+         "pattern" : [
+            "/.adSensepostnottherenonobook",
+            "/<invalid>hello.html",
+            "/actSensepostnottherenonotive",
+            "/acunetix-wvs-test-for-some-inexistent-file",
+            "/antidisestablishmentarianism",
+            "/appscan_fingerprint/mac_address",
+            "/arachni-",
+            "/cybercop",
+            "/nessus_is_probing_you_",
+            "/nessustest",
+            "/netsparker-",
+            "/rfiinc.txt",
+            "/thereisnowaythat-you-canbethere",
+            "/w3af/remotefileinclude.html",
+            "appscan_fingerprint",
+            "w00tw00t.at.ISC.SANS.DFind",
+            "w00tw00t.at.blackhats.romanian.anti-sec"
+         ],
+         "rev" : "3",
+         "severity" : "CRITICAL",
+         "tag" : [
+            "application-multi",
+            "language-multi",
+            "platform-multi",
+            "attack-reputation-scanner",
+            "OWASP_CRS/AUTOMATION/SECURITY_SCANNER",
+            "WASCTC/WASC-21",
+            "OWASP_TOP_10/A7",
+            "PCI/6.5.10"
+         ],
+         "vars" : [
+            {
+               "type" : "URI"
+            },
+            {
+               "parse" : [
+                  "values",
+                  "1"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ],
+         "ver" : "OWASP_CRS/3.0.0"
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "913013",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "2",
+         "skip_after" : "END-REQUEST-913-SCANNER-DETECTION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "913014",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "2",
+         "skip_after" : "END-REQUEST-913-SCANNER-DETECTION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "accuracy" : "7",
+         "actions" : {
+            "disrupt" : "DENY",
+            "nondisrupt" : [
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "MSG",
+                     "value" : "%{rule.msg}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "ANOMALY_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "%{RULE.ID}-OWASP_CRS/AUTOMATION/SCRIPTING-%{MATCHED_VAR_NAME}",
+                     "value" : "%{MATCHED_VAR}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "IP",
+                     "key" : "REPUT_BLOCK_FLAG",
+                     "value" : 1
+                  }
+               },
+               {
+                  "action" : "expirevar",
+                  "data" : {
+                     "col" : "IP",
+                     "key" : "REPUT_BLOCK_FLAG",
+                     "time" : "%{TX.REPUT_BLOCK_DURATION}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "IP",
+                     "key" : "REPUT_BLOCK_REASON",
+                     "value" : "%{rule.msg}"
+                  }
+               }
+            ]
+         },
+         "id" : "913101",
+         "logdata" : "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+         "maturity" : "9",
+         "msg" : "Found User-Agent associated with scripting/generic HTTP client",
+         "operator" : "PM",
+         "opts" : {
+            "transform" : [
+               "lowercase"
+            ]
+         },
+         "pattern" : [
+            "dav.pm/v",
+            "libwww-perl",
+            "mozilla/4.0 (compatible)",
+            "mozilla/4.0 (compatible; msie 6.0; win32)",
+            "mozilla/5.0 sf/",
+            "mozilla/5.0 sf//",
+            "python-httplib2",
+            "python-requests",
+            "Python-urllib",
+            "typhoeus",
+            "winhttp.winhttprequest"
+         ],
+         "rev" : "1",
+         "severity" : "CRITICAL",
+         "tag" : [
+            "application-multi",
+            "language-multi",
+            "platform-multi",
+            "attack-reputation-scripting",
+            "OWASP_CRS/AUTOMATION/SCRIPTING",
+            "WASCTC/WASC-21",
+            "OWASP_TOP_10/A7",
+            "PCI/6.5.10",
+            "paranoia-level/2"
+         ],
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "User-Agent"
+               ],
+               "type" : "REQUEST_HEADERS"
+            }
+         ],
+         "ver" : "OWASP_CRS/3.0.0"
+      },
+      {
+         "accuracy" : "9",
+         "actions" : {
+            "disrupt" : "DENY",
+            "nondisrupt" : [
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "MSG",
+                     "value" : "%{rule.msg}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "ANOMALY_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "%{RULE.ID}-OWASP_CRS/AUTOMATION/CRAWLER-%{MATCHED_VAR_NAME}",
+                     "value" : "%{MATCHED_VAR}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "IP",
+                     "key" : "REPUT_BLOCK_FLAG",
+                     "value" : 1
+                  }
+               },
+               {
+                  "action" : "expirevar",
+                  "data" : {
+                     "col" : "IP",
+                     "key" : "REPUT_BLOCK_FLAG",
+                     "time" : "%{TX.REPUT_BLOCK_DURATION}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "IP",
+                     "key" : "REPUT_BLOCK_REASON",
+                     "value" : "%{rule.msg}"
+                  }
+               }
+            ]
+         },
+         "id" : "913102",
+         "logdata" : "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+         "maturity" : "9",
+         "msg" : "Found User-Agent associated with web crawler/bot",
+         "operator" : "PM",
+         "opts" : {
+            "transform" : [
+               "lowercase"
+            ]
+         },
+         "pattern" : [
+            "black widow",
+            "blackwidow",
+            "prowebwalker",
+            "pymills-spider/",
+            "AhrefsBot",
+            "PiplBot",
+            "GrapeshotCrawler/2.0",
+            "grapeFX",
+            "SearchmetricsBot",
+            "rogerbot",
+            "MJ12bot",
+            "Owlin bot",
+            "Lingewoud-550-Spyder"
+         ],
+         "rev" : "1",
+         "severity" : "CRITICAL",
+         "tag" : [
+            "application-multi",
+            "language-multi",
+            "platform-multi",
+            "attack-reputation-crawler",
+            "OWASP_CRS/AUTOMATION/CRAWLER",
+            "WASCTC/WASC-21",
+            "OWASP_TOP_10/A7",
+            "PCI/6.5.10",
+            "paranoia-level/2"
+         ],
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "User-Agent"
+               ],
+               "type" : "REQUEST_HEADERS"
+            }
+         ],
+         "ver" : "OWASP_CRS/3.0.0"
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "913015",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "3",
+         "skip_after" : "END-REQUEST-913-SCANNER-DETECTION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "913016",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "3",
+         "skip_after" : "END-REQUEST-913-SCANNER-DETECTION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "913017",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "4",
+         "skip_after" : "END-REQUEST-913-SCANNER-DETECTION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "913018",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "4",
+         "skip_after" : "END-REQUEST-913-SCANNER-DETECTION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "DENY"
+         },
+         "id" : "END-REQUEST-913-SCANNER-DETECTION",
+         "op_negated" : 1,
+         "vars" : [
+            {
+               "unconditional" : 1
+            }
+         ]
+      }
+   ],
+   "body_filter" : [],
+   "header_filter" : []
+}
+

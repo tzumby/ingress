@@ -1,0 +1,848 @@
+{
+   "access" : [
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "912100",
+         "operator" : "EQUALS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "0",
+         "vars" : [
+            {
+               "length" : 1,
+               "parse" : [
+                  "specific",
+                  "DOS_BURST_TIME_SLICE"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "912100",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "0",
+         "vars" : [
+            {
+               "length" : 1,
+               "parse" : [
+                  "specific",
+                  "DOS_COUNTER_THRESHOLD"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "912100",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "0",
+         "skip_after" : "END_DOS_PROTECTION_CHECKS",
+         "vars" : [
+            {
+               "length" : 1,
+               "parse" : [
+                  "specific",
+                  "DOS_BLOCK_TIMEOUT"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "912011",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "skip_after" : "END-REQUEST-912-DOS-PROTECTION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "912012",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "skip_after" : "END-REQUEST-912-DOS-PROTECTION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "912120",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "tag" : [
+            "application-multi",
+            "language-multi",
+            "platform-multi",
+            "attack-dos"
+         ],
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "DOS_BLOCK"
+               ],
+               "storage" : 1,
+               "type" : "IP"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "DROP",
+            "nondisrupt" : [
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "IP",
+                     "inc" : 1,
+                     "key" : "DOS_BLOCK_COUNTER",
+                     "value" : 1
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "IP",
+                     "key" : "DOS_BLOCK_FLAG",
+                     "value" : 1
+                  }
+               },
+               {
+                  "action" : "expirevar",
+                  "data" : {
+                     "col" : "IP",
+                     "key" : "DOS_BLOCK_FLAG",
+                     "time" : 60
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "DOS_BLOCK_COUNTER",
+                     "value" : "%{IP.DOS_BLOCK_COUNTER}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "IP",
+                     "key" : "DOS_BLOCK_COUNTER",
+                     "value" : 0
+                  }
+               }
+            ]
+         },
+         "id" : "912120",
+         "msg" : "Denial of Service (DoS) attack identified from %{TX.REAL_IP} (%{TX.DOS_BLOCK_COUNTER} hits since last alert)",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "0",
+         "vars" : [
+            {
+               "length" : 1,
+               "parse" : [
+                  "specific",
+                  "DOS_BLOCK_FLAG"
+               ],
+               "storage" : 1,
+               "type" : "IP"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "DROP",
+            "nondisrupt" : [
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "IP",
+                     "inc" : 1,
+                     "key" : "DOS_BLOCK_COUNTER",
+                     "value" : 1
+                  }
+               }
+            ]
+         },
+         "id" : "912130",
+         "operator" : "EQUALS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "tag" : [
+            "application-multi",
+            "language-multi",
+            "platform-multi",
+            "attack-dos"
+         ],
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "DOS_BLOCK"
+               ],
+               "storage" : 1,
+               "type" : "IP"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "912013",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "2",
+         "skip_after" : "END-REQUEST-912-DOS-PROTECTION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "912014",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "2",
+         "skip_after" : "END-REQUEST-912-DOS-PROTECTION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "912015",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "3",
+         "skip_after" : "END-REQUEST-912-DOS-PROTECTION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "912016",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "3",
+         "skip_after" : "END-REQUEST-912-DOS-PROTECTION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "912017",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "4",
+         "skip_after" : "END-REQUEST-912-DOS-PROTECTION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "912018",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "4",
+         "skip_after" : "END-REQUEST-912-DOS-PROTECTION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "DENY"
+         },
+         "id" : "END-REQUEST-912-DOS-PROTECTION",
+         "op_negated" : 1,
+         "vars" : [
+            {
+               "unconditional" : 1
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "DENY"
+         },
+         "id" : "END_DOS_PROTECTION_CHECKS",
+         "op_negated" : 1,
+         "vars" : [
+            {
+               "unconditional" : 1
+            }
+         ]
+      }
+   ],
+   "body_filter" : [],
+   "header_filter" : [],
+   "log" : [
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "912110",
+         "operator" : "EQUALS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "0",
+         "vars" : [
+            {
+               "length" : 1,
+               "parse" : [
+                  "specific",
+                  "DOS_BURST_TIME_SLICE"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "912110",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "0",
+         "vars" : [
+            {
+               "length" : 1,
+               "parse" : [
+                  "specific",
+                  "DOS_COUNTER_THRESHOLD"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "912110",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "0",
+         "skip_after" : "END_DOS_PROTECTION_CHECKS",
+         "vars" : [
+            {
+               "length" : 1,
+               "parse" : [
+                  "specific",
+                  "DOS_BLOCK_TIMEOUT"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "912140",
+         "operator" : "EQUALS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "skip_after" : "END_DOS_PROTECTION_CHECKS",
+         "tag" : [
+            "application-multi",
+            "language-multi",
+            "platform-multi",
+            "attack-dos"
+         ],
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "DOS_BLOCK"
+               ],
+               "storage" : 1,
+               "type" : "IP"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN",
+            "nondisrupt" : [
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "EXTENSION",
+                     "value" : "/%{TX.1}/"
+                  }
+               }
+            ]
+         },
+         "id" : "912150",
+         "operator" : "REGEX",
+         "opts" : {
+            "nolog" : 1,
+            "transform" : [
+               "lowercase"
+            ]
+         },
+         "pattern" : ".*?(\\.[a-z0-9]{1,10})?$",
+         "tag" : [
+            "application-multi",
+            "language-multi",
+            "platform-multi",
+            "attack-dos"
+         ],
+         "vars" : [
+            {
+               "type" : "REQUEST_BASENAME"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE",
+            "nondisrupt" : [
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "IP",
+                     "inc" : 1,
+                     "key" : "DOS_COUNTER",
+                     "value" : 1
+                  }
+               }
+            ]
+         },
+         "id" : "912150",
+         "op_negated" : 1,
+         "operator" : "STR_EXISTS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "%{TX.STATIC_EXTENSIONS}",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "EXTENSION"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "912160",
+         "operator" : "GREATER_EQ",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "%{TX.DOS_COUNTER_THRESHOLD}",
+         "tag" : [
+            "application-multi",
+            "language-multi",
+            "platform-multi",
+            "attack-dos"
+         ],
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "DOS_COUNTER"
+               ],
+               "storage" : 1,
+               "type" : "IP"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE",
+            "nondisrupt" : [
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "IP",
+                     "key" : "DOS_BURST_COUNTER",
+                     "value" : 1
+                  }
+               },
+               {
+                  "action" : "expirevar",
+                  "data" : {
+                     "col" : "IP",
+                     "key" : "DOS_BURST_COUNTER",
+                     "time" : "%{TX.DOS_BURST_TIME_SLICE}"
+                  }
+               },
+               {
+                  "action" : "deletevar",
+                  "data" : {
+                     "col" : "IP",
+                     "key" : "DOS_COUNTER"
+                  }
+               }
+            ]
+         },
+         "id" : "912160",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "0",
+         "vars" : [
+            {
+               "length" : 1,
+               "parse" : [
+                  "specific",
+                  "DOS_BURST_COUNTER"
+               ],
+               "storage" : 1,
+               "type" : "IP"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "912161",
+         "operator" : "GREATER_EQ",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "%{TX.DOS_COUNTER_THRESHOLD}",
+         "tag" : [
+            "application-multi",
+            "language-multi",
+            "platform-multi",
+            "attack-dos"
+         ],
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "DOS_COUNTER"
+               ],
+               "storage" : 1,
+               "type" : "IP"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE",
+            "nondisrupt" : [
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "IP",
+                     "key" : "DOS_BURST_COUNTER",
+                     "value" : 2
+                  }
+               },
+               {
+                  "action" : "expirevar",
+                  "data" : {
+                     "col" : "IP",
+                     "key" : "DOS_BURST_COUNTER",
+                     "time" : "%{TX.DOS_BURST_TIME_SLICE}"
+                  }
+               },
+               {
+                  "action" : "deletevar",
+                  "data" : {
+                     "col" : "IP",
+                     "key" : "DOS_COUNTER"
+                  }
+               }
+            ]
+         },
+         "id" : "912161",
+         "operator" : "GREATER_EQ",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "vars" : [
+            {
+               "length" : 1,
+               "parse" : [
+                  "specific",
+                  "DOS_BURST_COUNTER"
+               ],
+               "storage" : 1,
+               "type" : "IP"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE",
+            "nondisrupt" : [
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "IP",
+                     "key" : "DOS_BLOCK",
+                     "value" : 1
+                  }
+               },
+               {
+                  "action" : "expirevar",
+                  "data" : {
+                     "col" : "IP",
+                     "key" : "DOS_BLOCK",
+                     "time" : "%{TX.DOS_BLOCK_TIMEOUT}"
+                  }
+               }
+            ]
+         },
+         "id" : "912170",
+         "msg" : "Potential Denial of Service (DoS) Attack from %{TX.REAL_IP} - # of Request Bursts: %{IP.DOS_BURST_COUNTER}",
+         "operator" : "GREATER_EQ",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "2",
+         "tag" : [
+            "application-multi",
+            "language-multi",
+            "platform-multi",
+            "attack-dos"
+         ],
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "DOS_BURST_COUNTER"
+               ],
+               "storage" : 1,
+               "type" : "IP"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "912019",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "2",
+         "skip_after" : "END-REQUEST-912-DOS-PROTECTION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE",
+            "nondisrupt" : [
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "IP",
+                     "key" : "DOS_BLOCK",
+                     "value" : 1
+                  }
+               },
+               {
+                  "action" : "expirevar",
+                  "data" : {
+                     "col" : "IP",
+                     "key" : "DOS_BLOCK",
+                     "time" : "%{TX.DOS_BLOCK_TIMEOUT}"
+                  }
+               }
+            ]
+         },
+         "id" : "912171",
+         "msg" : "Potential Denial of Service (DoS) Attack from %{TX.REAL_IP} - # of Request Bursts: %{IP.DOS_BURST_COUNTER}",
+         "operator" : "GREATER_EQ",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "tag" : [
+            "application-multi",
+            "language-multi",
+            "platform-multi",
+            "attack-dos",
+            "paranoia-level/2"
+         ],
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "DOS_BURST_COUNTER"
+               ],
+               "storage" : 1,
+               "type" : "IP"
+            }
+         ]
+      }
+   ]
+}
+

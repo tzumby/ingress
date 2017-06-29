@@ -1,0 +1,1355 @@
+{
+   "access" : [
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9002000",
+         "operator" : "EQUALS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "0",
+         "skip_after" : "END-WORDPRESS",
+         "vars" : [
+            {
+               "length" : 1,
+               "parse" : [
+                  "specific",
+                  "CRS_EXCLUSIONS_WORDPRESS"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            },
+            {
+               "parse" : [
+                  "specific",
+                  "CRS_EXCLUSIONS_WORDPRESS"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9002001",
+         "operator" : "EQUALS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "0",
+         "skip_after" : "END-WORDPRESS",
+         "vars" : [
+            {
+               "length" : 1,
+               "parse" : [
+                  "specific",
+                  "CRS_EXCLUSIONS_WORDPRESS"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            },
+            {
+               "parse" : [
+                  "specific",
+                  "CRS_EXCLUSIONS_WORDPRESS"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9002100",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "/wp-login.php$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002120",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "/wp-login.php$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002120",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "resetpass",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "action"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9002120",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "vars" : [
+            {
+               "length" : 1,
+               "parse" : [
+                  "specific",
+                  "action"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9002130",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "/wp-comments-post.php$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002150",
+         "operator" : "EQUALS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "on",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "wp_customize"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9002150",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "0",
+         "vars" : [
+            {
+               "length" : 1,
+               "parse" : [
+                  "specific",
+                  "action"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002160",
+         "operator" : "EQUALS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "on",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "wp_customize"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002160",
+         "operator" : "REFIND",
+         "pattern" : "^(?:|customize_save|update-widget)$",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "action"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9002160",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "vars" : [
+            {
+               "length" : 1,
+               "parse" : [
+                  "specific",
+                  "action"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE",
+            "nondisrupt" : [
+               {
+                  "action" : "rule_remove_id",
+                  "data" : "920180"
+               },
+               {
+                  "action" : "rule_remove_id",
+                  "data" : "920300"
+               }
+            ]
+         },
+         "id" : "9002200",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "/wp-cron.php$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002300",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1
+         },
+         "pattern" : "^[0-9a-f]+||\\d+||\\d+$",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "_wp_session"
+               ],
+               "type" : "COOKIES"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9002300",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "vars" : [
+            {
+               "length" : 1,
+               "parse" : [
+                  "specific",
+                  "_wp_session"
+               ],
+               "type" : "COOKIES"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9002400",
+         "op_negated" : 1,
+         "operator" : "STR_CONTAINS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "/wp-admin/",
+         "skip_after" : "END-WORDPRESS-ADMIN",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9002401",
+         "op_negated" : 1,
+         "operator" : "STR_CONTAINS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "/wp-admin/",
+         "skip_after" : "END-WORDPRESS-ADMIN",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002410",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "/wp-admin/setup-config.php$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002410",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "2",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "step"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9002410",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "vars" : [
+            {
+               "length" : 1,
+               "parse" : [
+                  "specific",
+                  "step"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002420",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "/wp-admin/install.php$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002420",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "2",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "step"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9002420",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "vars" : [
+            {
+               "length" : 1,
+               "parse" : [
+                  "specific",
+                  "step"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002520",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "/wp-admin/profile.php$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002520",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "update",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "action"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9002520",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "vars" : [
+            {
+               "length" : 1,
+               "parse" : [
+                  "specific",
+                  "action"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002530",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "/wp-admin/user-edit.php$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002530",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "update",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "action"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9002530",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "vars" : [
+            {
+               "length" : 1,
+               "parse" : [
+                  "specific",
+                  "action"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002540",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "/wp-admin/user-new.php$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002540",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "createuser",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "action"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9002540",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "vars" : [
+            {
+               "length" : 1,
+               "parse" : [
+                  "specific",
+                  "action"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9002600",
+         "opts" : {
+            "nolog" : 1
+         },
+         "vars" : [
+            {
+               "unconditional" : 1
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002700",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "/wp-admin/post.php$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002700",
+         "operator" : "REFIND",
+         "pattern" : "^(?:edit|editpost)$",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "action"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE",
+            "nondisrupt" : [
+               {
+                  "action" : "rule_remove_id",
+                  "data" : "920272"
+               },
+               {
+                  "action" : "rule_remove_id",
+                  "data" : "921180"
+               }
+            ]
+         },
+         "id" : "9002700",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "vars" : [
+            {
+               "length" : 1,
+               "parse" : [
+                  "specific",
+                  "action"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002710",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "/wp-admin/admin-ajax.php$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002710",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "heartbeat",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "action"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE",
+            "nondisrupt" : [
+               {
+                  "action" : "rule_remove_id",
+                  "data" : "921180"
+               },
+               {
+                  "action" : "rule_remove_id",
+                  "data" : "920272"
+               }
+            ]
+         },
+         "id" : "9002710",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "vars" : [
+            {
+               "length" : 1,
+               "parse" : [
+                  "specific",
+                  "action"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002720",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "/wp-admin/nav-menus.php$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002720",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "update",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "action"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9002720",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "vars" : [
+            {
+               "length" : 1,
+               "parse" : [
+                  "specific",
+                  "action"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002730",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "/wp-admin/admin-ajax.php$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002730",
+         "operator" : "REFIND",
+         "pattern" : "^(save-widget|update-widget)$",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "action"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9002730",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "vars" : [
+            {
+               "length" : 1,
+               "parse" : [
+                  "specific",
+                  "action"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002740",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "/wp-admin/admin-ajax.php$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002740",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "widgets-order",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "action"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9002740",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "vars" : [
+            {
+               "length" : 1,
+               "parse" : [
+                  "specific",
+                  "action"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002750",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "/wp-admin/admin-ajax.php$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002750",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "sample-permalink",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "action"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9002750",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "vars" : [
+            {
+               "length" : 1,
+               "parse" : [
+                  "specific",
+                  "action"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002760",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "/wp-admin/admin-ajax.php$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002760",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "add-menu-item",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "action"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9002760",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "vars" : [
+            {
+               "length" : 1,
+               "parse" : [
+                  "specific",
+                  "action"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002800",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "/wp-admin/options.php$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002800",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "general",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "option_page"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002800",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "vars" : [
+            {
+               "length" : 1,
+               "parse" : [
+                  "specific",
+                  "option_page"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002800",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "update",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "action"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9002800",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "vars" : [
+            {
+               "length" : 1,
+               "parse" : [
+                  "specific",
+                  "action"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9002810",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "/wp-admin/options-permalink.php$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002820",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "/wp-admin/options.php$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002820",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "discussion",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "option_page"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002820",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "vars" : [
+            {
+               "length" : 1,
+               "parse" : [
+                  "specific",
+                  "option_page"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "9002820",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "update",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "action"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "9002820",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "vars" : [
+            {
+               "length" : 1,
+               "parse" : [
+                  "specific",
+                  "action"
+               ],
+               "type" : "REQUEST_ARGS"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE",
+            "nondisrupt" : [
+               {
+                  "action" : "rule_remove_id",
+                  "data" : "921180"
+               }
+            ]
+         },
+         "id" : "9002900",
+         "operator" : "REFIND",
+         "opts" : {
+            "nolog" : 1
+         },
+         "pattern" : "/wp-admin/load-(scripts|styles)\\.php$",
+         "vars" : [
+            {
+               "type" : "URI"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "DENY"
+         },
+         "id" : "END-WORDPRESS-ADMIN",
+         "op_negated" : 1,
+         "vars" : [
+            {
+               "unconditional" : 1
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "DENY"
+         },
+         "id" : "END-WORDPRESS",
+         "op_negated" : 1,
+         "vars" : [
+            {
+               "unconditional" : 1
+            }
+         ]
+      }
+   ],
+   "body_filter" : [],
+   "header_filter" : []
+}
+

@@ -1,0 +1,331 @@
+{
+   "access" : [
+      {
+         "actions" : {
+            "disrupt" : "DENY"
+         },
+         "id" : "BEGIN_REQUEST_BLOCKING_EVAL",
+         "op_negated" : 1,
+         "vars" : [
+            {
+               "unconditional" : 1
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "949100",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "severity" : "CRITICAL",
+         "tag" : [
+            "application-multi",
+            "language-multi",
+            "platform-multi",
+            "attack-reputation-ip"
+         ],
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "REPUT_BLOCK_FLAG"
+               ],
+               "storage" : 1,
+               "type" : "IP"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "DENY",
+            "nondisrupt" : [
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "INBOUND_TX_MSG",
+                     "value" : "%{TX.MSG}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "INBOUND_ANOMALY_SCORE",
+                     "value" : "%{TX.ANOMALY_SCORE}"
+                  }
+               }
+            ]
+         },
+         "id" : "949100",
+         "logdata" : "Previous Block Reason: %{IP.REPUT_BLOCK_REASON}",
+         "msg" : "Request Denied by IP Reputation Enforcement.",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "DO_REPUT_BLOCK"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "DENY",
+            "nondisrupt" : [
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "INBOUND_TX_MSG",
+                     "value" : "%{TX.MSG}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "INBOUND_ANOMALY_SCORE",
+                     "value" : "%{TX.ANOMALY_SCORE}"
+                  }
+               }
+            ]
+         },
+         "id" : "949110",
+         "msg" : "Inbound Anomaly Score Exceeded (Total Score: %{TX.ANOMALY_SCORE})",
+         "operator" : "GREATER_EQ",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "%{TX.INBOUND_ANOMALY_SCORE_THRESHOLD}",
+         "severity" : "CRITICAL",
+         "tag" : [
+            "application-multi",
+            "language-multi",
+            "platform-multi",
+            "attack-generic"
+         ],
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "ANOMALY_SCORE"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "949011",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "skip_after" : "END-REQUEST-949-BLOCKING-EVALUATION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "949012",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "skip_after" : "END-REQUEST-949-BLOCKING-EVALUATION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "949013",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "2",
+         "skip_after" : "END-REQUEST-949-BLOCKING-EVALUATION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "949014",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "2",
+         "skip_after" : "END-REQUEST-949-BLOCKING-EVALUATION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "949015",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "3",
+         "skip_after" : "END-REQUEST-949-BLOCKING-EVALUATION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "949016",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "3",
+         "skip_after" : "END-REQUEST-949-BLOCKING-EVALUATION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "949017",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "4",
+         "skip_after" : "END-REQUEST-949-BLOCKING-EVALUATION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "949018",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "4",
+         "skip_after" : "END-REQUEST-949-BLOCKING-EVALUATION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "DENY"
+         },
+         "id" : "END-REQUEST-949-BLOCKING-EVALUATION",
+         "op_negated" : 1,
+         "vars" : [
+            {
+               "unconditional" : 1
+            }
+         ]
+      }
+   ],
+   "body_filter" : [],
+   "header_filter" : []
+}
+

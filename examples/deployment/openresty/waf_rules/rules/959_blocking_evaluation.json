@@ -1,0 +1,230 @@
+{
+   "access" : [
+      {
+         "actions" : {
+            "disrupt" : "DENY"
+         },
+         "id" : "END-RESPONSE-959-BLOCKING-EVALUATION",
+         "op_negated" : 1,
+         "vars" : [
+            {
+               "unconditional" : 1
+            }
+         ]
+      }
+   ],
+   "body_filter" : [
+      {
+         "actions" : {
+            "disrupt" : "DENY"
+         },
+         "id" : "959100",
+         "msg" : "Outbound Anomaly Score Exceeded (Total Score: %{TX.OUTBOUND_ANOMALY_SCORE})",
+         "operator" : "GREATER_EQ",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "%{TX.OUTBOUND_ANOMALY_SCORE_THRESHOLD}",
+         "tag" : [
+            "anomaly-evaluation"
+         ],
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "OUTBOUND_ANOMALY_SCORE"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "959012",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "skip_after" : "END-RESPONSE-959-BLOCKING-EVALUATION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "959014",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "2",
+         "skip_after" : "END-RESPONSE-959-BLOCKING-EVALUATION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "959016",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "3",
+         "skip_after" : "END-RESPONSE-959-BLOCKING-EVALUATION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "959018",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "4",
+         "skip_after" : "END-RESPONSE-959-BLOCKING-EVALUATION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      }
+   ],
+   "header_filter" : [
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "959011",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "skip_after" : "END-RESPONSE-959-BLOCKING-EVALUATION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "959013",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "2",
+         "skip_after" : "END-RESPONSE-959-BLOCKING-EVALUATION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "959015",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "3",
+         "skip_after" : "END-RESPONSE-959-BLOCKING-EVALUATION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "959017",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "4",
+         "skip_after" : "END-RESPONSE-959-BLOCKING-EVALUATION",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      }
+   ]
+}
+

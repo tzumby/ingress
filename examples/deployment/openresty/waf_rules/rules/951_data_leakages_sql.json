@@ -1,0 +1,1824 @@
+{
+   "access" : [
+      {
+         "actions" : {
+            "disrupt" : "IGNORE",
+            "nondisrupt" : [
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "SQL_ERROR_MATCH",
+                     "value" : 1
+                  }
+               }
+            ]
+         },
+         "id" : "951100",
+         "operator" : "PM",
+         "opts" : {
+            "nolog" : 1
+         },
+         "pattern" : [
+            "MySqlClient.",
+            "Server message",
+            "SQL error",
+            "Oracle error",
+            "JET Database Engine",
+            "Procedure or function ",
+            "SQLite.Exception",
+            "[IBM][CLI Driver][DB2/6000]",
+            "the used select statements have different number of columns",
+            "org.postgresql.util.PSQLException",
+            "Access Database Engine",
+            "Incorrect syntax near",
+            "Syntax error in string in query expression",
+            "SQLiteException",
+            "' doesn't exist",
+            "CLI Driver",
+            "on MySQL result index",
+            "sybase",
+            "com.informix.jdbc",
+            "[MySQL][ODBC",
+            "Error",
+            "has occurred in the vicinity of:",
+            "Sintaxis incorrecta cerca de",
+            "MySQL server version for the right syntax to use",
+            "com.mysql.jdbc.exceptions",
+            "You have an error in your SQL syntax near",
+            "You have an error in your SQL syntax;",
+            "An illegal character has been found in the statement",
+            "pg_query() [:",
+            "supplied argument is not a valid MySQL",
+            "mssql_query()",
+            "mysql_fetch_array()",
+            "Exception",
+            "java.sql.SQLException",
+            "Column count doesn't match value count at row",
+            "Sybase message",
+            " SQL Server",
+            "PostgreSQL query failed:",
+            "Dynamic SQL Error",
+            "System.Data.SQLite.SQLiteException",
+            "SQLite/JDBCDriver",
+            "Unclosed quotation mark before the character string",
+            "System.Data.SqlClient.",
+            "Unclosed quotation mark after the character string",
+            "System.Data.OleDb.OleDbException",
+            "[DM_QUERY_E_SYNTAX]",
+            "[SqlException",
+            "Unexpected end of command in statement",
+            "valid PostgreSQL result",
+            "pg_exec() [:",
+            "SQL Server",
+            "[SQLITE_ERROR]",
+            "Microsoft OLE DB Provider for ODBC Drivers",
+            "PostgreSQL",
+            "org.hsqldb.jdbc",
+            "ADODB.Field (0x800A0BCD)",
+            "SQL syntax",
+            "Exception ",
+            "System.Data.SqlClient.SqlException",
+            "Data type mismatch in criteria expression.",
+            "Driver",
+            "DB2 SQL error",
+            "Sybase message:",
+            "ORA-",
+            "[Microsoft][ODBC SQL Server Driver]",
+            "'80040e14'",
+            "Microsoft OLE DB Provider for SQL Server",
+            " in query expression",
+            "Npgsql.",
+            "valid MySQL result",
+            "supplied argument is not a valid PostgreSQL result",
+            "db2_",
+            "Ingres SQLSTATE",
+            "Column count doesn't match",
+            "Warning",
+            "[Microsoft][ODBC Microsoft Access Driver]",
+            "[Macromedia][SQLServer JDBC Driver]",
+            "<b>Warning</b>: ibase_",
+            "Roadhouse.Cms.",
+            "DB2 SQL error:"
+         ],
+         "rev" : "5",
+         "tag" : [
+            "application-multi",
+            "language-multi",
+            "platform-multi",
+            "attack-disclosure"
+         ],
+         "vars" : [
+            {
+               "type" : "RESPONSE_BODY"
+            }
+         ],
+         "ver" : "OWASP_CRS/3.0.0"
+      },
+      {
+         "accuracy" : "9",
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "951110",
+         "maturity" : "7",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "rev" : "1",
+         "severity" : "CRITICAL",
+         "tag" : [
+            "application-multi",
+            "language-multi",
+            "platform-msaccess",
+            "attack-disclosure",
+            "OWASP_CRS/LEAKAGE/ERRORS_SQL",
+            "CWE-209"
+         ],
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "SQL_ERROR_MATCH"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ],
+         "ver" : "OWASP_CRS/3.0.0"
+      },
+      {
+         "actions" : {
+            "disrupt" : "DENY",
+            "nondisrupt" : [
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "MSG",
+                     "value" : "%{rule.msg}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "OUTBOUND_ANOMALY_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "SQL_INJECTION_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "ANOMALY_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "%{RULE.ID}-OWASP_CRS/LEAKAGE/ERRORS-%{MATCHED_VAR_NAME}",
+                     "value" : "%{TX.0}"
+                  }
+               }
+            ]
+         },
+         "id" : "951110",
+         "logdata" : "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+         "msg" : "Microsoft Access SQL Information Leakage",
+         "operator" : "REGEX",
+         "pattern" : "(?i)(?:JET Database Engine|Access Database Engine|\\[Microsoft\\]\\[ODBC Microsoft Access Driver\\])",
+         "vars" : [
+            {
+               "type" : "RESPONSE_BODY"
+            }
+         ]
+      },
+      {
+         "accuracy" : "9",
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "951120",
+         "maturity" : "7",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "rev" : "1",
+         "severity" : "CRITICAL",
+         "tag" : [
+            "application-multi",
+            "language-multi",
+            "platform-oracle",
+            "attack-disclosure",
+            "OWASP_CRS/LEAKAGE/ERRORS_SQL",
+            "CWE-209"
+         ],
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "SQL_ERROR_MATCH"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ],
+         "ver" : "OWASP_CRS/3.0.0"
+      },
+      {
+         "actions" : {
+            "disrupt" : "DENY",
+            "nondisrupt" : [
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "MSG",
+                     "value" : "%{rule.msg}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "OUTBOUND_ANOMALY_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "SQL_INJECTION_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "ANOMALY_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "%{RULE.ID}-OWASP_CRS/LEAKAGE/ERRORS-%{MATCHED_VAR_NAME}",
+                     "value" : "%{TX.0}"
+                  }
+               }
+            ]
+         },
+         "id" : "951120",
+         "logdata" : "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+         "msg" : "Oracle SQL Information Leakage",
+         "operator" : "REGEX",
+         "pattern" : "(?i)(?:ORA-[0-9][0-9][0-9][0-9]|java\\.sql\\.SQLException|Oracle error|Oracle.*Driver|Warning.*oci_.*|Warning.*ora_.*)",
+         "vars" : [
+            {
+               "type" : "RESPONSE_BODY"
+            }
+         ]
+      },
+      {
+         "accuracy" : "9",
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "951130",
+         "maturity" : "7",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "rev" : "1",
+         "severity" : "CRITICAL",
+         "tag" : [
+            "application-multi",
+            "language-multi",
+            "platform-db2",
+            "attack-disclosure",
+            "OWASP_CRS/LEAKAGE/ERRORS_SQL",
+            "CWE-209"
+         ],
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "SQL_ERROR_MATCH"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ],
+         "ver" : "OWASP_CRS/3.0.0"
+      },
+      {
+         "actions" : {
+            "disrupt" : "DENY",
+            "nondisrupt" : [
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "MSG",
+                     "value" : "%{rule.msg}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "OUTBOUND_ANOMALY_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "SQL_INJECTION_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "ANOMALY_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "%{RULE.ID}-OWASP_CRS/LEAKAGE/ERRORS-%{MATCHED_VAR_NAME}",
+                     "value" : "%{TX.0}"
+                  }
+               }
+            ]
+         },
+         "id" : "951130",
+         "logdata" : "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+         "msg" : "DB2 SQL Information Leakage",
+         "operator" : "REGEX",
+         "pattern" : "(?i)(?:DB2 SQL error:|\\[IBM\\]\\[CLI Driver\\]\\[DB2/6000\\]|CLI Driver.*DB2|DB2 SQL error|db2_\\w+\\()",
+         "vars" : [
+            {
+               "type" : "RESPONSE_BODY"
+            }
+         ]
+      },
+      {
+         "accuracy" : "9",
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "951140",
+         "maturity" : "7",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "rev" : "1",
+         "severity" : "CRITICAL",
+         "tag" : [
+            "application-multi",
+            "language-multi",
+            "platform-emc",
+            "attack-disclosure",
+            "OWASP_CRS/LEAKAGE/ERRORS_SQL",
+            "CWE-209"
+         ],
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "SQL_ERROR_MATCH"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ],
+         "ver" : "OWASP_CRS/3.0.0"
+      },
+      {
+         "actions" : {
+            "disrupt" : "DENY",
+            "nondisrupt" : [
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "MSG",
+                     "value" : "%{rule.msg}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "OUTBOUND_ANOMALY_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "SQL_INJECTION_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "ANOMALY_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "%{RULE.ID}-OWASP_CRS/LEAKAGE/ERRORS-%{MATCHED_VAR_NAME}",
+                     "value" : "%{TX.0}"
+                  }
+               }
+            ]
+         },
+         "id" : "951140",
+         "logdata" : "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+         "msg" : "EMC SQL Information Leakage",
+         "operator" : "REGEX",
+         "pattern" : "(?i)(?:\\[DM_QUERY_E_SYNTAX\\]|has occurred in the vicinity of:)",
+         "vars" : [
+            {
+               "type" : "RESPONSE_BODY"
+            }
+         ]
+      },
+      {
+         "accuracy" : "9",
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "951150",
+         "maturity" : "7",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "rev" : "1",
+         "severity" : "CRITICAL",
+         "tag" : [
+            "application-multi",
+            "language-multi",
+            "platform-firebird",
+            "attack-disclosure",
+            "OWASP_CRS/LEAKAGE/ERRORS_SQL",
+            "CWE-209"
+         ],
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "SQL_ERROR_MATCH"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ],
+         "ver" : "OWASP_CRS/3.0.0"
+      },
+      {
+         "actions" : {
+            "disrupt" : "DENY",
+            "nondisrupt" : [
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "MSG",
+                     "value" : "%{rule.msg}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "OUTBOUND_ANOMALY_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "SQL_INJECTION_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "ANOMALY_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "%{RULE.ID}-OWASP_CRS/LEAKAGE/ERRORS-%{MATCHED_VAR_NAME}",
+                     "value" : "%{TX.0}"
+                  }
+               }
+            ]
+         },
+         "id" : "951150",
+         "logdata" : "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+         "msg" : "firebird SQL Information Leakage",
+         "operator" : "REGEX",
+         "pattern" : "(?i)(?:Dynamic SQL Error)",
+         "vars" : [
+            {
+               "type" : "RESPONSE_BODY"
+            }
+         ]
+      },
+      {
+         "accuracy" : "9",
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "951160",
+         "maturity" : "7",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "rev" : "1",
+         "severity" : "CRITICAL",
+         "tag" : [
+            "application-multi",
+            "language-multi",
+            "platform-frontbase",
+            "attack-disclosure",
+            "OWASP_CRS/LEAKAGE/ERRORS_SQL",
+            "CWE-209"
+         ],
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "SQL_ERROR_MATCH"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ],
+         "ver" : "OWASP_CRS/3.0.0"
+      },
+      {
+         "actions" : {
+            "disrupt" : "DENY",
+            "nondisrupt" : [
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "MSG",
+                     "value" : "%{rule.msg}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "OUTBOUND_ANOMALY_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "SQL_INJECTION_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "ANOMALY_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "%{RULE.ID}-OWASP_CRS/LEAKAGE/ERRORS-%{MATCHED_VAR_NAME}",
+                     "value" : "%{TX.0}"
+                  }
+               }
+            ]
+         },
+         "id" : "951160",
+         "logdata" : "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+         "msg" : "Frontbase SQL Information Leakage",
+         "operator" : "REGEX",
+         "pattern" : "(?i)(?:Exception (condition )?\\d+\\. Transaction rollback\\.)",
+         "vars" : [
+            {
+               "type" : "RESPONSE_BODY"
+            }
+         ]
+      },
+      {
+         "accuracy" : "9",
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "951170",
+         "maturity" : "7",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "rev" : "1",
+         "severity" : "CRITICAL",
+         "tag" : [
+            "application-multi",
+            "language-multi",
+            "platform-hsqldb",
+            "attack-disclosure",
+            "OWASP_CRS/LEAKAGE/ERRORS_SQL",
+            "CWE-209"
+         ],
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "SQL_ERROR_MATCH"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ],
+         "ver" : "OWASP_CRS/3.0.0"
+      },
+      {
+         "actions" : {
+            "disrupt" : "DENY",
+            "nondisrupt" : [
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "MSG",
+                     "value" : "%{rule.msg}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "OUTBOUND_ANOMALY_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "SQL_INJECTION_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "ANOMALY_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "%{RULE.ID}-OWASP_CRS/LEAKAGE/ERRORS-%{MATCHED_VAR_NAME}",
+                     "value" : "%{TX.0}"
+                  }
+               }
+            ]
+         },
+         "id" : "951170",
+         "logdata" : "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+         "msg" : "hsqldb SQL Information Leakage",
+         "operator" : "REGEX",
+         "pattern" : "(?i)(?:org\\.hsqldb\\.jdbc)",
+         "vars" : [
+            {
+               "type" : "RESPONSE_BODY"
+            }
+         ]
+      },
+      {
+         "accuracy" : "9",
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "951180",
+         "maturity" : "7",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "rev" : "1",
+         "severity" : "CRITICAL",
+         "tag" : [
+            "application-multi",
+            "language-multi",
+            "platform-informix",
+            "attack-disclosure",
+            "OWASP_CRS/LEAKAGE/ERRORS_SQL",
+            "CWE-209"
+         ],
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "SQL_ERROR_MATCH"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ],
+         "ver" : "OWASP_CRS/3.0.0"
+      },
+      {
+         "actions" : {
+            "disrupt" : "DENY",
+            "nondisrupt" : [
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "MSG",
+                     "value" : "%{rule.msg}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "OUTBOUND_ANOMALY_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "SQL_INJECTION_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "ANOMALY_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "%{RULE.ID}-OWASP_CRS/LEAKAGE/ERRORS-%{MATCHED_VAR_NAME}",
+                     "value" : "%{TX.0}"
+                  }
+               }
+            ]
+         },
+         "id" : "951180",
+         "logdata" : "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+         "msg" : "informix SQL Information Leakage",
+         "operator" : "REGEX",
+         "pattern" : "(?i)(?:An illegal character has been found in the statement|com\\.informix\\.jdbc|Exception.*Informix)",
+         "vars" : [
+            {
+               "type" : "RESPONSE_BODY"
+            }
+         ]
+      },
+      {
+         "accuracy" : "9",
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "951190",
+         "maturity" : "7",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "rev" : "1",
+         "severity" : "CRITICAL",
+         "tag" : [
+            "application-multi",
+            "language-multi",
+            "platform-ingres",
+            "attack-disclosure",
+            "OWASP_CRS/LEAKAGE/ERRORS_SQL",
+            "CWE-209"
+         ],
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "SQL_ERROR_MATCH"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ],
+         "ver" : "OWASP_CRS/3.0.0"
+      },
+      {
+         "actions" : {
+            "disrupt" : "DENY",
+            "nondisrupt" : [
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "MSG",
+                     "value" : "%{rule.msg}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "OUTBOUND_ANOMALY_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "SQL_INJECTION_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "ANOMALY_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "%{RULE.ID}-OWASP_CRS/LEAKAGE/ERRORS-%{MATCHED_VAR_NAME}",
+                     "value" : "%{TX.0}"
+                  }
+               }
+            ]
+         },
+         "id" : "951190",
+         "logdata" : "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+         "msg" : "ingres SQL Information Leakage",
+         "operator" : "REGEX",
+         "pattern" : "(?i)(?:Warning.*ingres_|Ingres SQLSTATE|Ingres\\W.*Driver)",
+         "vars" : [
+            {
+               "type" : "RESPONSE_BODY"
+            }
+         ]
+      },
+      {
+         "accuracy" : "9",
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "951200",
+         "maturity" : "7",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "rev" : "1",
+         "severity" : "CRITICAL",
+         "tag" : [
+            "application-multi",
+            "language-multi",
+            "platform-interbase",
+            "attack-disclosure",
+            "OWASP_CRS/LEAKAGE/ERRORS_SQL",
+            "CWE-209"
+         ],
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "SQL_ERROR_MATCH"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ],
+         "ver" : "OWASP_CRS/3.0.0"
+      },
+      {
+         "actions" : {
+            "disrupt" : "DENY",
+            "nondisrupt" : [
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "MSG",
+                     "value" : "%{rule.msg}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "OUTBOUND_ANOMALY_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "SQL_INJECTION_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "ANOMALY_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "%{RULE.ID}-OWASP_CRS/LEAKAGE/ERRORS-%{MATCHED_VAR_NAME}",
+                     "value" : "%{TX.0}"
+                  }
+               }
+            ]
+         },
+         "id" : "951200",
+         "logdata" : "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+         "msg" : "interbase SQL Information Leakage",
+         "operator" : "REGEX",
+         "pattern" : "(?i)(?:<b>Warning</b>: ibase_|Unexpected end of command in statement)",
+         "vars" : [
+            {
+               "type" : "RESPONSE_BODY"
+            }
+         ]
+      },
+      {
+         "accuracy" : "9",
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "951210",
+         "maturity" : "7",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "rev" : "1",
+         "severity" : "CRITICAL",
+         "tag" : [
+            "application-multi",
+            "language-multi",
+            "platform-maxdb",
+            "attack-disclosure",
+            "OWASP_CRS/LEAKAGE/ERRORS_SQL",
+            "CWE-209"
+         ],
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "SQL_ERROR_MATCH"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ],
+         "ver" : "OWASP_CRS/3.0.0"
+      },
+      {
+         "actions" : {
+            "disrupt" : "DENY",
+            "nondisrupt" : [
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "MSG",
+                     "value" : "%{rule.msg}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "OUTBOUND_ANOMALY_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "SQL_INJECTION_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "ANOMALY_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "%{RULE.ID}-OWASP_CRS/LEAKAGE/ERRORS-%{MATCHED_VAR_NAME}",
+                     "value" : "%{TX.0}"
+                  }
+               }
+            ]
+         },
+         "id" : "951210",
+         "logdata" : "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+         "msg" : "maxDB SQL Information Leakage",
+         "operator" : "REGEX",
+         "pattern" : "(?i)(?:SQL error.*POS([0-9]+).*|Warning.*maxdb.*)",
+         "vars" : [
+            {
+               "type" : "RESPONSE_BODY"
+            }
+         ]
+      },
+      {
+         "accuracy" : "9",
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "951220",
+         "maturity" : "7",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "rev" : "1",
+         "severity" : "CRITICAL",
+         "tag" : [
+            "application-multi",
+            "language-multi",
+            "platform-mssql",
+            "attack-disclosure",
+            "OWASP_CRS/LEAKAGE/ERRORS_SQL",
+            "CWE-209"
+         ],
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "SQL_ERROR_MATCH"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ],
+         "ver" : "OWASP_CRS/3.0.0"
+      },
+      {
+         "actions" : {
+            "disrupt" : "DENY",
+            "nondisrupt" : [
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "MSG",
+                     "value" : "%{rule.msg}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "OUTBOUND_ANOMALY_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "SQL_INJECTION_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "ANOMALY_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "%{RULE.ID}-OWASP_CRS/LEAKAGE/ERRORS-%{MATCHED_VAR_NAME}",
+                     "value" : "%{TX.0}"
+                  }
+               }
+            ]
+         },
+         "id" : "951220",
+         "logdata" : "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+         "msg" : "mssql SQL Information Leakage",
+         "operator" : "REGEX",
+         "pattern" : "(?i)(?:System\\.Data\\.OleDb\\.OleDbException|\\[Microsoft\\]\\[ODBC SQL Server Driver\\]|\\[Macromedia\\]\\[SQLServer JDBC Driver\\]|\\[SqlException|System\\.Data\\.SqlClient\\.SqlException|Unclosed quotation mark after the character string|'80040e14'|mssql_query\\(\\)|Microsoft OLE DB Provider for ODBC Drivers|Microsoft OLE DB Provider for SQL Server|Incorrect syntax near|Sintaxis incorrecta cerca de|Syntax error in string in query expression|Procedure or function .* expects parameter|Unclosed quotation mark before the character string|Syntax error .* in query expression|Data type mismatch in criteria expression\\.|ADODB\\.Field \\(0x800A0BCD\\)|the used select statements have different number of columns|OLE DB.*SQL Server|Warning.*mssql_.*|Driver.*SQL[\\-\\_\\ ]*Server|SQL Server.*Driver|SQL Server.*[0-9a-fA-F]{8}|Exception.*\\WSystem\\.Data\\.SqlClient\\.)",
+         "vars" : [
+            {
+               "type" : "RESPONSE_BODY"
+            }
+         ]
+      },
+      {
+         "accuracy" : "9",
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "951230",
+         "maturity" : "7",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "rev" : "1",
+         "severity" : "CRITICAL",
+         "tag" : [
+            "application-multi",
+            "language-multi",
+            "platform-mysql",
+            "attack-disclosure",
+            "OWASP_CRS/LEAKAGE/ERRORS_SQL",
+            "CWE-209"
+         ],
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "SQL_ERROR_MATCH"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ],
+         "ver" : "OWASP_CRS/3.0.0"
+      },
+      {
+         "actions" : {
+            "disrupt" : "DENY",
+            "nondisrupt" : [
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "MSG",
+                     "value" : "%{rule.msg}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "OUTBOUND_ANOMALY_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "SQL_INJECTION_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "ANOMALY_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "%{RULE.ID}-OWASP_CRS/LEAKAGE/ERRORS-%{MATCHED_VAR_NAME}",
+                     "value" : "%{TX.0}"
+                  }
+               }
+            ]
+         },
+         "id" : "951230",
+         "logdata" : "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+         "msg" : "mysql SQL Information Leakage",
+         "operator" : "REGEX",
+         "pattern" : "(?i)(?:supplied argument is not a valid MySQL|Column count doesn't match value count at row|mysql_fetch_array\\(\\)|on MySQL result index|You have an error in your SQL syntax;|You have an error in your SQL syntax near|MySQL server version for the right syntax to use|\\[MySQL\\]\\[ODBC|Column count doesn't match|Table '[^']+' doesn't exist|SQL syntax.*MySQL|Warning.*mysql_.*|valid MySQL result|MySqlClient\\.)",
+         "vars" : [
+            {
+               "type" : "RESPONSE_BODY"
+            }
+         ]
+      },
+      {
+         "accuracy" : "9",
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "951240",
+         "maturity" : "7",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "rev" : "1",
+         "severity" : "CRITICAL",
+         "tag" : [
+            "application-multi",
+            "language-multi",
+            "platform-pgsql",
+            "attack-disclosure",
+            "OWASP_CRS/LEAKAGE/ERRORS_SQL",
+            "CWE-209"
+         ],
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "SQL_ERROR_MATCH"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ],
+         "ver" : "OWASP_CRS/3.0.0"
+      },
+      {
+         "actions" : {
+            "disrupt" : "DENY",
+            "nondisrupt" : [
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "MSG",
+                     "value" : "%{rule.msg}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "OUTBOUND_ANOMALY_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "SQL_INJECTION_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "ANOMALY_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "%{RULE.ID}-OWASP_CRS/LEAKAGE/ERRORS-%{MATCHED_VAR_NAME}",
+                     "value" : "%{TX.0}"
+                  }
+               }
+            ]
+         },
+         "id" : "951240",
+         "logdata" : "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+         "msg" : "postgres SQL Information Leakage",
+         "operator" : "REGEX",
+         "pattern" : "(?i)(?:PostgreSQL query failed:|pg_query\\(\\) \\[:|pg_exec\\(\\) \\[:|PostgreSQL.*ERROR|Warning.*pg_.*|valid PostgreSQL result|Npgsql\\.|PG::([a-zA-Z]*)Error|Supplied argument is not a valid PostgreSQL (?:.*?) resource|Unable to connect to PostgreSQL server)",
+         "vars" : [
+            {
+               "type" : "RESPONSE_BODY"
+            }
+         ]
+      },
+      {
+         "accuracy" : "9",
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "951250",
+         "maturity" : "7",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "rev" : "1",
+         "severity" : "CRITICAL",
+         "tag" : [
+            "application-multi",
+            "language-multi",
+            "platform-sqlite",
+            "attack-disclosure",
+            "OWASP_CRS/LEAKAGE/ERRORS_SQL",
+            "CWE-209"
+         ],
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "SQL_ERROR_MATCH"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ],
+         "ver" : "OWASP_CRS/3.0.0"
+      },
+      {
+         "actions" : {
+            "disrupt" : "DENY",
+            "nondisrupt" : [
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "MSG",
+                     "value" : "%{rule.msg}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "OUTBOUND_ANOMALY_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "SQL_INJECTION_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "ANOMALY_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "%{RULE.ID}-OWASP_CRS/LEAKAGE/ERRORS-%{MATCHED_VAR_NAME}",
+                     "value" : "%{TX.0}"
+                  }
+               }
+            ]
+         },
+         "id" : "951250",
+         "logdata" : "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+         "msg" : "sqlite SQL Information Leakage",
+         "operator" : "REGEX",
+         "pattern" : "(?i)(?:Warning.*sqlite_.*|Warning.*SQLite3::|SQLite/JDBCDriver|SQLite\\.Exception|System\\.Data\\.SQLite\\.SQLiteException)",
+         "vars" : [
+            {
+               "type" : "RESPONSE_BODY"
+            }
+         ]
+      },
+      {
+         "accuracy" : "9",
+         "actions" : {
+            "disrupt" : "CHAIN"
+         },
+         "id" : "951260",
+         "maturity" : "7",
+         "operator" : "EQUALS",
+         "opts" : {
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "rev" : "1",
+         "severity" : "CRITICAL",
+         "tag" : [
+            "application-multi",
+            "language-multi",
+            "platform-sybase",
+            "attack-disclosure",
+            "OWASP_CRS/LEAKAGE/ERRORS_SQL",
+            "CWE-209"
+         ],
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "SQL_ERROR_MATCH"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ],
+         "ver" : "OWASP_CRS/3.0.0"
+      },
+      {
+         "actions" : {
+            "disrupt" : "DENY",
+            "nondisrupt" : [
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "MSG",
+                     "value" : "%{rule.msg}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "OUTBOUND_ANOMALY_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "SQL_INJECTION_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "inc" : 1,
+                     "key" : "ANOMALY_SCORE",
+                     "value" : "%{TX.CRITICAL_ANOMALY_SCORE}"
+                  }
+               },
+               {
+                  "action" : "setvar",
+                  "data" : {
+                     "col" : "TX",
+                     "key" : "%{RULE.ID}-OWASP_CRS/LEAKAGE/ERRORS-%{MATCHED_VAR_NAME}",
+                     "value" : "%{TX.0}"
+                  }
+               }
+            ]
+         },
+         "id" : "951260",
+         "logdata" : "Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}",
+         "msg" : "Sybase SQL Information Leakage",
+         "operator" : "REGEX",
+         "pattern" : "(?i)(?:Sybase message:|Warning.*sybase.*|Sybase.*Server message.*)",
+         "vars" : [
+            {
+               "type" : "RESPONSE_BODY"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "DENY"
+         },
+         "id" : "END-RESPONSE-951-DATA-LEAKAGES-SQL",
+         "op_negated" : 1,
+         "vars" : [
+            {
+               "unconditional" : 1
+            }
+         ]
+      }
+   ],
+   "body_filter" : [
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "951012",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "skip_after" : "END-RESPONSE-951-DATA-LEAKAGES-SQL",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "951014",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "2",
+         "skip_after" : "END-RESPONSE-951-DATA-LEAKAGES-SQL",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "951016",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "3",
+         "skip_after" : "END-RESPONSE-951-DATA-LEAKAGES-SQL",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "951018",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "4",
+         "skip_after" : "END-RESPONSE-951-DATA-LEAKAGES-SQL",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      }
+   ],
+   "header_filter" : [
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "951011",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "1",
+         "skip_after" : "END-RESPONSE-951-DATA-LEAKAGES-SQL",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "951013",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "2",
+         "skip_after" : "END-RESPONSE-951-DATA-LEAKAGES-SQL",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "951015",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "3",
+         "skip_after" : "END-RESPONSE-951-DATA-LEAKAGES-SQL",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      },
+      {
+         "actions" : {
+            "disrupt" : "IGNORE"
+         },
+         "id" : "951017",
+         "operator" : "LESS",
+         "opts" : {
+            "nolog" : 1,
+            "parsepattern" : 1
+         },
+         "pattern" : "4",
+         "skip_after" : "END-RESPONSE-951-DATA-LEAKAGES-SQL",
+         "vars" : [
+            {
+               "parse" : [
+                  "specific",
+                  "PARANOIA_LEVEL"
+               ],
+               "storage" : 1,
+               "type" : "TX"
+            }
+         ]
+      }
+   ]
+}
+
